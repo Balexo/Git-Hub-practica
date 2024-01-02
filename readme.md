@@ -1,27 +1,28 @@
-* 10)	Deshacer el último commit (perdiendo los cambios realizados en el working copy) *
-Git reset –hard HEAD~1
-**Razonamiento:** con esto vuelvo al commit anterior perdiendo los cambios en el working copy
+**_10)Deshacer el último commit (perdiendo los cambios realizados en el working copy)_** <br>
+Git reset –hard HEAD~1 <br>
+_Razonamiento:_ con esto vuelvo al commit anterior perdiendo los cambios en el working copy <br>
 
-* 12)	Rehacer el último commit (el que acabamos de deshacer) *
-Git reflog
-Git reset –hard <commit id> "c4e3845"
-**Razonamiento:** Con ello pongo HEAD y la rama styled a ese commit que ahora está inaccesible. Además recupera la rama styled y el archivo git-nuestro con las modificaciones de styled, de otra forma sería un detached HEAD. Con un git status compruebo que el HEAD está en la rama styled
+**_12)	Rehacer el último commit (el que acabamos de deshacer)_** <br>
+Git reflog <br>
+Git reset –hard <commit id> "c4e3845" <br>
+_Razonamiento:_ Con ello pongo HEAD y la rama styled a ese commit que ahora está inaccesible. Además recupera la rama styled y el archivo git-nuestro con las modificaciones de styled, de otra forma sería un detached HEAD. Con un git status compruebo que el HEAD está en la rama styled <br>
 
-* 13)	Hacer un merge con ‘main’ (styled absorbe a main) *
-Git merge main
-**Razonamiento:** En la rama styled para que esta abosorva a mian. Como en main no ha habido cambios y solo en styled va a indicar Already up to date  ya que styled tiene acceso a todos los commits de main y no incorpora ninguna modificación de main.
+**_13)	Hacer un merge con ‘main’ (styled absorbe a main)_** <br>
+Git merge main <br>
+_Razonamiento:_ En la rama styled para que esta abosorva a mian. Como en main no ha habido cambios y solo en styled va a indicar Already up to date  ya que styled tiene acceso a todos los commits de main y no incorpora ninguna modificación de main. <br>
 
-* 19) Hacer un merge de “htmlify” en “styled” (styled absorbe a htmlify) *
-Git checkout styled. Git merge htmlify.
-**Razonamiento:** movemos el HEAD a styled para que absorva a htmlify. El archivo git-nuestro tendría la información que aparece en la rama htmlify pero al haber un conflicto al estar el mismo archivo, en las mismas líneas y con diferente código, nos vamos a quedar con el código de la rama styled como indicado en el paso 20.
+**_19) Hacer un merge de “htmlify” en “styled” (styled absorbe a htmlify)_** <br>
+Git checkout styled. Git merge htmlify. <br>
+_Razonamiento:_ movemos el HEAD a styled para que absorva a htmlify. El archivo git-nuestro tendría la información que aparece en la rama htmlify pero al haber un conflicto al estar el mismo archivo, en las mismas líneas y con diferente código, nos vamos a quedar con el código de la rama styled como indicado en el paso 20. <br>
 
-* 21) Desde “main”, hacer un merge con “styled” *
-Git checkout main. Git merge styled. 
-**Razonamiento:** El archivo git-nuestro incorpora los cambios de styled. 
+**_21) Desde “main”, hacer un merge con “styled”_**<br>
+Git checkout main. Git merge styled.  <br>
+_Razonamiento:_ El archivo git-nuestro incorpora los cambios de styled.  <br>
 
-* 25) Dibujar el diagrama *
-git log --graph
-**Dibujo**
+**_25) Dibujar el diagrama_** <br>
+git log --graph <br>
+_Dibujo_ <br>
+```
 PS C:\Users\oscar\Git-Hub-practica> git log --graph
 *   commit 8f88a7613e0941150d07cc49f657959e1023d6e5 (HEAD -> main, styled)
 |\  Merge: c4e3845 b0a5719
@@ -53,35 +54,35 @@ PS C:\Users\oscar\Git-Hub-practica> git log --graph
   Date:   Mon Jan 1 16:37:50 2024 +0100
 
       Añado el archivo readme
+```
+**_26) Hacer un merge “no fast-forward” de “title” en “main” (main absorbe a title)_**<br>
+Ya estoy en la rama main así que Git merge –no-ff title. <br>
+_Razonamiento:_ Para que no sea fast forward hay que añadir --no-ff Ahora main tiene el archivo git nuestro con el título.<br>
 
-* 26) Hacer un merge “no fast-forward” de “title” en “main” (main absorbe a title) *
-Ya estoy en la rama main así que Git merge –no-ff title. 
-**Razonamiento:** Para que no sea fast forward hay que añadir --no-ff Ahora main tiene el archivo git nuestro con el título.
+**_27) Deshacer el merge (sin perder los cambios del working copy)_** <br>
+Git reset HEAD~1<br>
+_Razonamiento:_ muevo el HEAD por el grafo y mantengo la working copy<br>
 
-* 27) Deshacer el merge (sin perder los cambios del working copy)*
-Git reset HEAD~1
-**Razonamiento:** muevo el HEAD por el grafo y mantengo la working copy
+**_28) Descartar los cambios_**<br>
+Git restore git-nuestro.md <br>
+_Razonamiento:_ deshacemos los cambios en el working copy de git-nuestro.md <br>
 
-* 28) Descartar los cambios *
-Git restore git-nuestro.md
-**Razonamiento:** deshacemos los cambios en el working copy de git-nuestro.md
+**_29) Eliminar la rama “title”_**<br>
+Git branch -D title <br>
+_Razonamiento:_ Tengo que estar situado fuera de esa rama. Indica que no está fully mergue por este razón tengo que hacerlo con la D mayúscula. <br>
 
-* 29) Eliminar la rama “title” *
-Git branch -D title
-**Razonamiento:** Tengo que estar situado fuera de esa rama. Indica que no está fully mergue por este razón tengo que hacerlo con la D mayúscula.
+**_30) Rehacer el merge que hemos deshecho_** <br>
+Git reflog. Git reset –hard HEAD~1 "c6a4ec0" <br>
+_Razonamiento:_ Con ello pongo HEAD y la rama main a ese commit anterior. Recupero el merge y el archivo git-nuestro con las modificaciones de title. Con un git status compruebo que el HEAD está en la rama main. <br>
 
-30) Rehacer el merge que hemos deshecho
-Git reflog. Git reset –hard HEAD~1 "c6a4ec0"
-**Razonamiento:** Con ello pongo HEAD y la rama main a ese commit anterior. Recupero el merge y el archivo git-nuestro con las modificaciones de title. Con un git status compruebo que el HEAD está en la rama main.
+**_32) Volver al commit inicial cuando se creó el poema_** <br>
+Git reflog <br>
+Git checkout <commit id> "a1066fb" <br>
+_Razonamiento_: busco el commit con el texto “Creo el archivo git-nuestro” <br>
 
-32) Volver al commit inicial cuando se creó el poema
-Git reflog
-Git checkout <commit id> "a1066fb"
-**Razonamiento**: busco el commit con el texto “Creo el archivo git-nuestro”
-
-33) Volver al estado final, cuando pusimos título al poema
-Git checkout main
-**Razonamiento**: ya que es la única rama que nos queda y que contiene el último merge que hicimos.
+**_33) Volver al estado final, cuando pusimos título al poema_** <br>
+Git checkout main <br>
+_Razonamiento_: ya que es la única rama que nos queda y que contiene el último merge que hicimos. <br>
 
 
 
